@@ -23,11 +23,18 @@ public class LineNumberingCharTransformer {
   public String transform(String c) {
     if(_firstLine){
       _firstLine = false;
-      return _lineNumber++ + ". " + c;
+      if(c.equals("\n"))
+        return _lineNumber++ + ". " + c +  _lineNumber++ + ". ";
+      else
+        return _lineNumber++ + ". " + c;
     }
-    if(c.equals("\n"))
-      return c + _lineNumber++ + ". ";
-    else
-      return c;
+    else {
+      if(c.equals("\r"))
+        return "";
+      else if (c.equals("\n"))
+        return c + _lineNumber++ + ". ";
+      else
+        return c;
+    }
   }
 }

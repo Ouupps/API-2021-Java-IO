@@ -28,6 +28,8 @@ public class FileExplorer {
 
     private void exploreRecursiv(File rootDirectory, FileTransformer transformer){
 
+        if(!rootDirectory.exists())
+            return;
         File filesList[] = rootDirectory.listFiles();
 
         for (File currentFile : filesList){

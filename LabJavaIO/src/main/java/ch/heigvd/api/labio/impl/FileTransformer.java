@@ -25,9 +25,10 @@ public class FileTransformer {
     try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(inputFile.getPath() + ".out"), "UTF-8")) {
       try (InputStreamReader fr = new InputStreamReader(new FileInputStream(inputFile), "UTF-8")) {
         while (fr.ready()) {
-          String c = noTransform.transform(String.valueOf(fr.read()));
+          String c = noTransform.transform(String.valueOf((char)fr.read()));
           c = upperTransform.transform(c);
           c = lineAdd.transform(c);
+          LOG.info(c);
           fw.write(c);
         }
       }

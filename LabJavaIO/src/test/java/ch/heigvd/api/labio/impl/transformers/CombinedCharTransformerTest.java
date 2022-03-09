@@ -30,7 +30,6 @@ public class CombinedCharTransformerTest {
     public void itShouldTransformCharacters() {
         String source = "abcdefgABCDEFG\t12345 !?'.\r\nAnother Line...\nThird Line.\r\n";
         String target = "1. ABCDEFGABCDEFG\t12345 !?'.\n2. ANOTHER LINE...\n3. THIRD LINE.\n4. ";
-        String c = transform(source);
         assertEquals(target, transform(source));
     }
 }
