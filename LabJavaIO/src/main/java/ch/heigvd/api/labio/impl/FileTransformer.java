@@ -1,6 +1,10 @@
 package ch.heigvd.api.labio.impl;
 
-import java.io.File;
+import ch.heigvd.api.labio.impl.transformers.LineNumberingCharTransformer;
+import ch.heigvd.api.labio.impl.transformers.NoOpCharTransformer;
+import ch.heigvd.api.labio.impl.transformers.UpperCaseCharTransformer;
+
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +19,24 @@ public class FileTransformer {
   private static final Logger LOG = Logger.getLogger(FileTransformer.class.getName());
 
   public void transform(File inputFile) {
+    NoOpCharTransformer noTransform = new NoOpCharTransformer();
+    LineNumberingCharTransformer lineAdd = new LineNumberingCharTransformer();
+    UpperCaseCharTransformer upperTransform = new UpperCaseCharTransformer();
+    try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(inputFile.getPath() + ".out"), "UTF-8")) {
+      try (InputStreamReader fr = new InputStreamReader(new FileInputStream(inputFile), "UTF-8")) {
+        while (fr.ready()) {
+          String c = noTransform.transform(String.valueOf(fr.read()));
+          c = upperTransform.transform(c);
+          c = lineAdd.transform(c);
+          fw.write(c);
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    ;
     /*
      * This method opens the given inputFile and copies the
      * content to an output file.

@@ -19,8 +19,12 @@ import java.util.logging.Logger;
 public class LineNumberingCharTransformer {
   private static final Logger LOG = Logger.getLogger(UpperCaseCharTransformer.class.getName());
   private int _lineNumber = 1;
-
+  private boolean _firstLine = true;
   public String transform(String c) {
+    if(_firstLine){
+      _firstLine = false;
+      return _lineNumber++ + ". " + c;
+    }
     if(c.equals("\n"))
       return c + _lineNumber++ + ". ";
     else
