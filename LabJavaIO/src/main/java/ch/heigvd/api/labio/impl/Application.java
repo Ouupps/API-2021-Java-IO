@@ -5,6 +5,7 @@ import ch.heigvd.api.labio.quotes.QuoteClient;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,7 +123,7 @@ public class Application {
 
     // Create the output file under the new directory. Use the filename received as parameter.
     File file = new File(directory, filename);
-    try (OutputStreamWriter fw = new OutputStreamWriter( new FileOutputStream(file), "UTF-8")){
+    try (OutputStreamWriter fw = new OutputStreamWriter( new FileOutputStream(file), StandardCharsets.UTF_8)){
       fw.write(quote.getQuote());
     }
   }

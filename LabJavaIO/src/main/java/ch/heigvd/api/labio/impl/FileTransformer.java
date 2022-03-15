@@ -5,6 +5,7 @@ import ch.heigvd.api.labio.impl.transformers.NoOpCharTransformer;
 import ch.heigvd.api.labio.impl.transformers.UpperCaseCharTransformer;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +24,8 @@ public class FileTransformer {
     LineNumberingCharTransformer lineAdd = new LineNumberingCharTransformer();
     UpperCaseCharTransformer upperTransform = new UpperCaseCharTransformer();
 
-    try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(inputFile.getPath() + ".out"), "UTF-8")) {
-      try (InputStreamReader fr = new InputStreamReader(new FileInputStream(inputFile), "UTF-8")) {
+    try (OutputStreamWriter fw = new OutputStreamWriter(new FileOutputStream(inputFile.getPath() + ".out"), StandardCharsets.UTF_8)) {
+      try (InputStreamReader fr = new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8)) {
         while (fr.ready()) {
           String c = noTransform.transform(String.valueOf((char)fr.read()));
           c = upperTransform.transform(c);
